@@ -15,7 +15,7 @@ dotenv.config();
 // Middleware
 
 app.use(express.json()); // Body parser when sent as json
-app.use(express.urlencoded({extended: true}));
+app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 app.use('/', add);
 app.use('/', edit);

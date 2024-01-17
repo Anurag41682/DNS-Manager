@@ -1,11 +1,11 @@
-import "./App.css";
-import { Route, Routes } from "react-router-dom";
-import Navbar from "./components/Navbar";
-import Login from "./components/Login";
-import Home from "./components/HomePage";
-import PrivateRoute from "./components/PrivateRoute";
+import './App.css';
+import { Route, Routes } from 'react-router-dom';
+import Navbar from './components/Navbar';
+import Login from './components/Login';
+import Home from './components/HomePage';
+import PrivateRoute from './components/PrivateRoute';
 
-import UserDetailContextProvider from "./contextProvider/UserDetailProvider";
+import UserDetailContextProvider from './contextProvider/UserDetailProvider';
 function App() {
   return (
     <UserDetailContextProvider>
@@ -26,6 +26,4 @@ function App() {
     </UserDetailContextProvider>
   );
 }
-
-
 export default App;
