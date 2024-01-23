@@ -25,3 +25,8 @@
   align-items: center;
   background-color: blueviolet;
 }
+
+.home {
+  margin-top: 1rem;
+  text-align: center;
+}

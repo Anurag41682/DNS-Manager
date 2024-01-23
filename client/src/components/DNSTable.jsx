@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import {
   Table,
   TableBody,
@@ -8,8 +8,9 @@ import {
   TableRow,
   Paper,
 } from '@mui/material';
-
-const DNSRecordsTable = ({ dnsRecords }) => {
+import DnsRecordContext from '../context/DnsRecordContext';
+const DNSRecordsTable = () => {
+  const { recordValue, _ } = useContext(DnsRecordContext);
   return (
     <TableContainer component={Paper} style={{ marginTop: '20px' }}>
       <Table>
@@ -20,11 +21,11 @@ const DNSRecordsTable = ({ dnsRecords }) => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {dnsRecords.map((record, index) => (
-            <TableRow key={index}>
-              <TableCell>{record.type}</TableCell>
-              <TableCell>{record.value}</TableCell>
-            </TableRow>
+          {recordValue.map((record, index) =>
+          (<TableRow key={index}>
+            <TableCell>{record.type}</TableCell>
+            <TableCell>{record.value}</TableCell>
+          </TableRow>
           ))}
         </TableBody>
       </Table>

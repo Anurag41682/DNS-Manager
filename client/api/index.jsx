@@ -25,3 +25,14 @@ export const auth = async () => {
   setAuthorizationHeader();
   return await API.get("/auth");
 };
+
+export const add = async (data) => {
+  setAuthorizationHeader();
+  return await API.post("/add", { data });
+};
+
+export const fetchData = async () => {
+  setAuthorizationHeader();
+  return await API.get("/fetch");
+};
+

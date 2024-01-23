@@ -25,20 +25,20 @@ app.use('/', login);
 app.use('/', auth);
 
 const connectDB = async () => {
-	try {
-		await mongoose.connect(process.env.MONGO_URL);
-		console.log('Database is connected successfully');
-		const PORT = process.env.PORT;
-		app.listen(PORT, () => {
-			console.log(`Server is listening on PORT: ${PORT}`);
-		});
-	} catch (error) {
-		console.error(error);
-	}
+  try {
+    await mongoose.connect(process.env.MONGO_URL);
+    console.log('Database is connected successfully');
+    const PORT = process.env.PORT;
+    app.listen(PORT, () => {
+      console.log(`Server is listening on PORT: ${PORT}`);
+    });
+  } catch (error) {
+    console.error(error);
+  }
 };
 
 connectDB();
 
 app.get('/', (request, res) => {
-	res.send('WORKING FINE');
+  res.send('WORKING FINE');
 });

@@ -1,11 +1,22 @@
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import UserDetailContext from '../context/UserDetailContext';
+import DnsRecordContext from '../context/DnsRecordContext';
 import Dashboard from './Dashboard';
-import DNSForm from './DNSForm';
-
+import { fetchData } from '../../api';
 function Home() {
-  const { isLoggedin, setIsloggedIn, userName, setUserName } =
+  const { _, __, setIsloggedIn, userName, ___ } =
     useContext(UserDetailContext);
+  const { recordValue, setRecordValue } = useContext(DnsRecordContext);
+  useEffect(() => {
+    fetchData()
+      .then((res) => {
+        const temp = res.data.result.map((val) => {
+          return { value: val.value, type: val.type };
+        });
+        setRecordValue(temp);
+      })
+      .catch((err) => { console.log(err); })
+  }, [])
   return (
     <>
       <div className="home">Welcome {userName}</div>

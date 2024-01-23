@@ -6,6 +6,7 @@ import Home from './components/HomePage';
 import PrivateRoute from './components/PrivateRoute';
 
 import UserDetailContextProvider from './contextProvider/UserDetailProvider';
+import DnsRecordContextProvider from "./contextProvider/DnsRecordContextProvider"
 function App() {
   return (
     <UserDetailContextProvider>
@@ -17,7 +18,9 @@ function App() {
             path="/"
             element={
               <PrivateRoute>
-                <Home />
+                <DnsRecordContextProvider>
+                  <Home />
+                </DnsRecordContextProvider>
               </PrivateRoute>
             }
           ></Route>
