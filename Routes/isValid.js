@@ -15,6 +15,6 @@ const isValid = (req, res, next) => {
       next();
     }
   });
-}
+};
 
 export default isValid;

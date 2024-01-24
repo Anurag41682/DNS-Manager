@@ -36,3 +36,7 @@ export const fetchData = async () => {
   return await API.get("/fetch");
 };
 
+export const deleteData = async (id) => {
+  setAuthorizationHeader();
+  return await API.delete(`/delete/${id}`);
+};

@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext } from "react";
 import {
   Table,
   TableBody,
@@ -7,12 +7,29 @@ import {
   TableHead,
   TableRow,
   Paper,
-} from '@mui/material';
-import DnsRecordContext from '../context/DnsRecordContext';
+  IconButton,
+} from "@mui/material";
+import DeleteIcon from "@mui/icons-material/Delete";
+import ModeEditIcon from "@mui/icons-material/ModeEdit";
+import DnsRecordContext from "../context/DnsRecordContext";
+import { deleteData } from "../../api";
 const DNSRecordsTable = () => {
-  const { recordValue, _ } = useContext(DnsRecordContext);
+  const { recordValue, setRecordValue } = useContext(DnsRecordContext);
+  const handleEdit = (id) => {
+    console.log(id);
+  };
+  const handleDelete = (id) => {
+    deleteData(id)
+      .then((res) => {
+        const temp = recordValue.filter((obj) => obj.id !== id);
+        setRecordValue(temp);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
   return (
-    <TableContainer component={Paper} style={{ marginTop: '20px' }}>
+    <TableContainer component={Paper} style={{ marginTop: "20px" }}>
       <Table>
         <TableHead>
           <TableRow>
@@ -21,11 +38,21 @@ const DNSRecordsTable = () => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {recordValue.map((record, index) =>
-          (<TableRow key={index}>
-            <TableCell>{record.type}</TableCell>
-            <TableCell>{record.value}</TableCell>
-          </TableRow>
+          {recordValue.map((record) => (
+            <TableRow key={record.id}>
+              <TableCell>{record.type}</TableCell>
+              <TableCell>{record.value}</TableCell>
+              <TableCell
+                sx={{ display: "flex", justifyContent: "space-around" }}
+              >
+                <IconButton onClick={() => handleEdit(record.id)}>
+                  <ModeEditIcon></ModeEditIcon>
+                </IconButton>
+                <IconButton onClick={() => handleDelete(record.id)}>
+                  <DeleteIcon></DeleteIcon>
+                </IconButton>
+              </TableCell>
+            </TableRow>
           ))}
         </TableBody>
       </Table>

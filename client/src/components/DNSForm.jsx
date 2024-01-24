@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext } from "react";
 import {
   TextField,
   Button,
@@ -6,9 +6,9 @@ import {
   MenuItem,
   InputLabel,
   FormControl,
-} from '@mui/material';
-import { add } from '../../api';
-import DnsRecordContext from '../context/DnsRecordContext';
+} from "@mui/material";
+import { add } from "../../api";
+import DnsRecordContext from "../context/DnsRecordContext";
 
 const DNSForm = () => {
   const { _, setRecordValue } = useContext(DnsRecordContext);
@@ -18,15 +18,18 @@ const DNSForm = () => {
     if (dnsType && dnsValue) {
       const newRecord = { type: dnsType, value: dnsValue };
       const res = add(newRecord);
-      res.then((res) => {
-        setRecordValue((prevRecordValue) => [...prevRecordValue, newRecord]);
-        console.log(res);
-      }).catch((err) => console.log(err));
+      res
+        .then((res) => {
+          newRecord.id = res.data.id;
+          setRecordValue((prevRecordValue) => [...prevRecordValue, newRecord]);
+          console.log(res);
+        })
+        .catch((err) => console.log(err));
     }
   };
 
   return (
-    <div style={{ marginTop: '20px', marginBottom: '20px' }}>
+    <div style={{ marginTop: "20px", marginBottom: "20px" }}>
       <FormControl fullWidth>
         <InputLabel id="record-type-label">Record Type</InputLabel>
         <Select
@@ -34,7 +37,7 @@ const DNSForm = () => {
           id="record-type"
           value={dnsType}
           label="Record Type"
-          onChange={e => setDnsType(e.target.value)}
+          onChange={(e) => setDnsType(e.target.value)}
         >
           <MenuItem value="A">A (Address) Record</MenuItem>
           <MenuItem value="AAAA">AAAA (IPv6 Address) Record</MenuItem>
@@ -54,7 +57,7 @@ const DNSForm = () => {
         variant="outlined"
         margin="normal"
         value={dnsValue}
-        onChange={e => setDnsValue(e.target.value)}
+        onChange={(e) => setDnsValue(e.target.value)}
       />
       <Button variant="contained" color="primary" onClick={handleSubmit}>
         Add DNS Record
@@ -64,4 +67,3 @@ const DNSForm = () => {
 };
 
 export default DNSForm;
-
