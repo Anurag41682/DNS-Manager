@@ -12,15 +12,26 @@ import {
 import DeleteIcon from "@mui/icons-material/Delete";
 import ModeEditIcon from "@mui/icons-material/ModeEdit";
 import DnsRecordContext from "../context/DnsRecordContext";
-import { deleteData } from "../../api";
-const DNSRecordsTable = () => {
-  const { recordValue, setRecordValue } = useContext(DnsRecordContext);
+import { deleteData, editData } from "../../api";
+const DNSRecordsTable = (props) => {
+  const {
+    recordValue,
+    setRecordValue,
+    dnsType,
+    setDnsType,
+    dnsValue,
+    setDnsValue,
+  } = useContext(DnsRecordContext);
   const handleEdit = (id) => {
-    console.log(id);
+    const temp = recordValue.filter((item) => item.id === id);
+    props.setIsAdding(false);
+    props.setEditId(id);
+    setDnsType(temp[0].type);
+    setDnsValue(temp[0].value);
   };
   const handleDelete = (id) => {
     deleteData(id)
-      .then((res) => {
+      .then(() => {
         const temp = recordValue.filter((obj) => obj.id !== id);
         setRecordValue(temp);
       })

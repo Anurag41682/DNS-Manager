@@ -4,12 +4,8 @@ import DNSForm from "./DNSForm";
 import DNSRecordsTable from "./DNSTable";
 
 const Dashboard = () => {
-  const [dnsRecords, setDNSRecords] = useState([]);
-
-  const handleAddDNSRecord = (record) => {
-    setDNSRecords((prevRecords) => [...prevRecords, record]);
-  };
-
+  const [isAdding, setIsAdding] = useState(true);
+  const [editId, setEditId] = useState(null);
   return (
     <Container component="main" maxWidth="lg">
       <CssBaseline />
@@ -17,8 +13,17 @@ const Dashboard = () => {
         <Typography variant="h4" align="center" gutterBottom>
           DNS Dashboard
         </Typography>
-        <DNSForm onAddDNSRecord={handleAddDNSRecord} />
-        <DNSRecordsTable dnsRecords={dnsRecords} />
+        <DNSForm
+          setEditId={setEditId}
+          editId={editId}
+          isAdding={isAdding}
+          setIsAdding={setIsAdding}
+        />
+        <DNSRecordsTable
+          setEditId={setEditId}
+          isAdding={isAdding}
+          setIsAdding={setIsAdding}
+        />
       </Paper>
     </Container>
   );

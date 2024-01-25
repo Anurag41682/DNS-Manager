@@ -26,7 +26,7 @@ export const auth = async () => {
   return await API.get("/auth");
 };
 
-export const add = async (data) => {
+export const addData = async (data) => {
   setAuthorizationHeader();
   return await API.post("/add", { data });
 };
@@ -39,4 +39,9 @@ export const fetchData = async () => {
 export const deleteData = async (id) => {
   setAuthorizationHeader();
   return await API.delete(`/delete/${id}`);
+};
+
+export const editData = async (data) => {
+  setAuthorizationHeader();
+  return await API.patch("/edit", { data });
 };

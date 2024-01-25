@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useContext } from "react";
 import {
   TextField,
   Button,
@@ -7,17 +7,23 @@ import {
   InputLabel,
   FormControl,
 } from "@mui/material";
-import { add } from "../../api";
+import { addData, editData } from "../../api";
 import DnsRecordContext from "../context/DnsRecordContext";
 
-const DNSForm = () => {
-  const { _, setRecordValue } = useContext(DnsRecordContext);
-  const [dnsType, setDnsType] = useState("");
-  const [dnsValue, setDnsValue] = useState("");
-  const handleSubmit = () => {
+const DNSForm = (props) => {
+  const {
+    recordValue,
+    setRecordValue,
+    dnsType,
+    setDnsType,
+    dnsValue,
+    setDnsValue,
+  } = useContext(DnsRecordContext);
+
+  const handleSubmitAdd = () => {
     if (dnsType && dnsValue) {
       const newRecord = { type: dnsType, value: dnsValue };
-      const res = add(newRecord);
+      const res = addData(newRecord);
       res
         .then((res) => {
           newRecord.id = res.data.id;
@@ -26,6 +32,23 @@ const DNSForm = () => {
         })
         .catch((err) => console.log(err));
     }
+  };
+  const handleSubmitEdit = () => {
+    const updatedRecord = { type: dnsType, value: dnsValue, id: props.editId };
+    console.log(updatedRecord);
+    const res = editData(updatedRecord);
+    res
+      .then((res) => {
+        console.log(res);
+        const temp = recordValue.map((record) =>
+          record.id === props.editId ? updatedRecord : record
+        );
+        setRecordValue(temp);
+        setDnsType("");
+        setDnsValue("");
+      })
+      .catch((err) => console.log(err));
+    props.setIsAdding(true);
   };
 
   return (
@@ -59,8 +82,13 @@ const DNSForm = () => {
         value={dnsValue}
         onChange={(e) => setDnsValue(e.target.value)}
       />
-      <Button variant="contained" color="primary" onClick={handleSubmit}>
-        Add DNS Record
+      <Button
+        variant="contained"
+        color="primary"
+        onClick={props.isAdding ? handleSubmitAdd : handleSubmitEdit}
+      >
+        {props.isAdding ? "Add " : "Edit "}
+        DNS Record
       </Button>
     </div>
   );
