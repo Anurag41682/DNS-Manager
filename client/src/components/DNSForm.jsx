@@ -28,18 +28,15 @@ const DNSForm = (props) => {
         .then((res) => {
           newRecord.id = res.data.id;
           setRecordValue((prevRecordValue) => [...prevRecordValue, newRecord]);
-          console.log(res);
         })
         .catch((err) => console.log(err));
     }
   };
   const handleSubmitEdit = () => {
     const updatedRecord = { type: dnsType, value: dnsValue, id: props.editId };
-    console.log(updatedRecord);
     const res = editData(updatedRecord);
     res
-      .then((res) => {
-        console.log(res);
+      .then(() => {
         const temp = recordValue.map((record) =>
           record.id === props.editId ? updatedRecord : record
         );

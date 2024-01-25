@@ -30,3 +30,11 @@
   margin-top: 1rem;
   text-align: center;
 }
+
+#error-page {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 80%;
+}
